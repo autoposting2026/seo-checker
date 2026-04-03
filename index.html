@@ -1,4 +1,4 @@
-<!doctype html>
+l<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -290,6 +290,10 @@
   </div>
 
   <script>
+    // ===== IMPORTANT: PASTE YOUR API KEY BETWEEN THE QUOTES BELOW =====
+    const API_KEY = "PUT_YOUR_API_KEY_HERE"; 
+    // ==================================================================
+
     document.getElementById('seo-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -320,8 +324,14 @@
       issuesList.innerHTML = "";
 
       try {
-        // Call Google PageSpeed API specifically asking for the 'seo' category
-        const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&category=seo`;
+        // Call Google PageSpeed API
+        let apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&category=seo`;
+        
+        // Add the API key if you provided one
+        if (API_KEY !== "AIzaSyBZdVCo0n_IGUkVmiXccnEQ8vFAeqJMOjw" && API_KEY.trim() !== "") {
+          apiUrl += `&key=${API_KEY}`;
+        }
+
         const response = await fetch(apiUrl);
         const data = await response.json();
 
@@ -356,8 +366,6 @@
         for (const key in audits) {
           const audit = audits[key];
           
-          // If the score is less than 1 (meaning it failed or is a warning)
-          // and it's an actionable item, not just a diagnostic metric.
           if (audit.score !== null && audit.score < 1 && audit.details && audit.details.type !== "opportunity") {
             foundIssues = true;
             
@@ -383,11 +391,16 @@
         scoreWrapper.style.display = "block";
 
       } catch (error) {
-        // Show the error cleanly on the page instead of an alert
-        errorBox.innerText = "⚠️ Error: " + error.message + " Please make sure you entered a real, public website.";
+        // Show the error cleanly on the page
+        let friendlyMessage = error.message;
+        if (error.message.includes("Quota exceeded")) {
+          friendlyMessage = "Scanner is currently too busy (Google API limit reached). Please try again later or add an API key in the code.";
+        }
+        
+        errorBox.innerHTML = `<strong>⚠️ Error:</strong> ${friendlyMessage}`;
         errorBox.style.display = "block";
       } finally {
-        // Always show the container so the user sees the promo banner, even if it failed!
+        // Always show the container so the user sees the promo banner
         loader.style.display = "none";
         loadingText.style.display = "none";
         resultsContainer.style.display = "block";
