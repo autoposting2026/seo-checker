@@ -277,8 +277,8 @@
       </div>
       
       <div class="promo">
-        <h3>Too busy to fix this yourself?</h3>
-        <p>Let us handle your SEO, blog writing, and social media posting automatically. Focus on growing your business while our AI pipelines do the heavy lifting.</p>
+        <h3 id="promo-title">Too busy to fix this yourself?</h3>
+        <p id="promo-desc">Let us handle your SEO, blog writing, and social media posting automatically. Focus on growing your business while our AI pipelines do the heavy lifting.</p>
         <div class="promo-buttons">
           <a href="https://autoposting2026.github.io/AI/" class="btn primary">View AI Plans (EN)</a>
           <a href="https://autoposting2026.github.io/AI/bg.html" class="btn">Вижте плановете (БГ)</a>
@@ -309,6 +309,10 @@
       const issuesList = document.getElementById('issues-list');
       const scoreDisplay = document.getElementById('score-display');
       const errorBox = document.getElementById('error-box');
+      
+      // Dynamic Promo Elements
+      const promoTitle = document.getElementById('promo-title');
+      const promoDesc = document.getElementById('promo-desc');
 
       // Make sure URL has http/https
       let targetUrl = urlInput.trim();
@@ -325,6 +329,10 @@
       scoreWrapper.style.display = "none";
       errorBox.style.display = "none";
       issuesList.innerHTML = "";
+
+      // Reset promo to default just in case
+      promoTitle.innerText = "Too busy to fix this yourself?";
+      promoDesc.innerText = "Let us handle your SEO, blog writing, and social media posting automatically. Focus on growing your business while our AI pipelines do the heavy lifting.";
 
       try {
         // Call Google PageSpeed API
@@ -350,10 +358,12 @@
         const seoScore = Math.round(data.lighthouseResult.categories.seo.score * 100);
         scoreDisplay.innerText = seoScore;
 
-        // Change circle color based on score
+        // ===== DYNAMIC SCORE LOGIC =====
         if (seoScore >= 90) {
           scoreDisplay.style.borderColor = "#c7ff6b"; // Green
           scoreDisplay.style.color = "#c7ff6b";
+          promoTitle.innerText = "Your technical SEO is flawless! 🏆";
+          promoDesc.innerText = "But are you posting enough content to drive real traffic? Let us automate your daily social media and blog posting so you can dominate the algorithms effortlessly.";
         } else if (seoScore >= 50) {
           scoreDisplay.style.borderColor = "#ffd36b"; // Yellow
           scoreDisplay.style.color = "#ffd36b";
