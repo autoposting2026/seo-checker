@@ -45,6 +45,31 @@
       text-align: center;
     }
 
+    /* Top Navigation Area */
+    .top-nav {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .nav-link {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid var(--stroke);
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.04);
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(199,255,107,.10);
+      border-color: rgba(199,255,107,.35);
+      transform: translateY(-2px);
+    }
+
     h1 {
       font-family: 'Fraunces', serif;
       font-size: clamp(2rem, 4vw, 3.5rem);
@@ -254,6 +279,11 @@
 <body>
 
   <div class="container">
+    
+    <nav class="top-nav">
+      <a href="about.html" class="nav-link">About Me</a>
+    </nav>
+
     <h1>Free SEO Checker</h1>
     <p class="lead">Enter your website URL to instantly scan for technical SEO errors and get actionable tips to rank higher on Google.</p>
 
@@ -281,7 +311,7 @@
         <p id="promo-desc">We specialize in building fully automated **Make.com** pipelines for content and **Technical SEO** infrastructure. Skip the headache and get a custom system built 100% hands-off. Secure, asynchronous B2B service—no Zoom meetings required.</p>
         
         <div class="promo-buttons" style="flex-direction: column; gap: 15px;">
-          <a href="[https://www.fiverr.com/s/vv0AGpW]" class="btn primary" target="_blank" style="width: 100%; border-radius: 12px; font-size: 1.2rem; background: linear-gradient(135deg, rgba(199,255,107,.35), #1DBF73); color: white;">Hire An AI Automation Expert on Fiverr</a>
+          <a href="https://www.fiverr.com/s/vv0AGpW" class="btn primary" target="_blank" style="width: 100%; border-radius: 12px; font-size: 1.2rem; background: linear-gradient(135deg, rgba(199,255,107,.35), #1DBF73); color: white;">Hire An AI Automation Expert on Fiverr</a>
           
           <div style="display: flex; gap: 15px; width: 100%;">
             <a href="https://autoposting2026.github.io/AI/" class="btn" style="flex: 1; border-radius: 10px; font-size: 0.9rem;">View AI Plans (EN)</a>
@@ -289,6 +319,8 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
   <script>
     // ===== API KEY (Split in two to stop GitHub security alerts) =====
